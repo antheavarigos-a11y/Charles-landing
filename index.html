@@ -5,9 +5,13 @@
   <title>Charles Intelligence</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Inter from Google Fonts; remove if you self-host -->
+  <!-- Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
     * {
@@ -22,7 +26,7 @@
 
     body {
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #1a1a1a; /* dark background */
+      background: #1a1a1a;
       color: #f5f5f5;
     }
 
@@ -34,46 +38,44 @@
       justify-content: space-between;
     }
 
-    /* Logo / mark placeholder using brand teals */
     .logo {
-      width: 16px;
-      height: 20px;
-      background: #1c9197; /* primary teal */
-      clip-path: polygon(50% 0, 100% 35%, 80% 100%, 20% 100%, 0 35%);
+      width: 44px; /* adjust if you want it larger/smaller */
+      height: auto;
       margin-bottom: 96px;
+      display: block;
     }
 
     .eyebrow {
       letter-spacing: 0.22em;
       font-size: 11px;
       text-transform: uppercase;
-      color: #0b6c79; /* secondary teal */
+      color: #0b6c79;
       margin-bottom: 28px;
       font-weight: 500;
     }
 
     .headline-main {
       font-weight: 700;
-      font-size: 52px;
+      font-size: 68px;
       line-height: 1.06;
       letter-spacing: -0.02em;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
     .headline-sub {
       font-weight: 700;
-      font-size: 52px;
+      font-size: 68px;
       line-height: 1.06;
       letter-spacing: -0.02em;
-      color: #dbbaa3; /* accent warm beige to separate from main */
+      color: #888888; /* grey "Built for Australia." */
       margin-bottom: 40px;
     }
 
     .body-copy {
       font-size: 16px;
       line-height: 1.6;
-      color: #e0e0e0;
-      max-width: 520px;
+      color: #b3b3b3; /* grey paragraph */
+      max-width: 560px;
       font-weight: 400;
     }
 
@@ -81,17 +83,12 @@
       font-size: 11px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #888888;
+      color: #666666;
       font-weight: 500;
     }
 
-    /* Example usage of danger red for future states (not visible now) */
-    .danger {
-      color: #f87171;
-    }
-
     .top-block {
-      max-width: 720px;
+      max-width: 760px;
     }
 
     @media (max-width: 768px) {
@@ -101,11 +98,12 @@
 
       .logo {
         margin-bottom: 64px;
+        width: 32px;
       }
 
       .headline-main,
       .headline-sub {
-        font-size: 34px;
+        font-size: 40px;
       }
 
       .body-copy {
@@ -117,7 +115,11 @@
 <body>
   <div class="page">
     <div>
-      <div class="logo"></div>
+      <img
+        src="Charles-Intelligence-Logo.jpg"
+        alt="Charles Intelligence logo"
+        class="logo"
+      />
 
       <div class="top-block">
         <div class="eyebrow">CHARLES INTELLIGENCE</div>
