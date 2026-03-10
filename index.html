@@ -1,106 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <title>Charles Intelligence: Agentic Investment Property Platform</title>
+<head>
+  <meta charset="UTF-8" />
+  <title>Charles Intelligence</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Inter from Google Fonts; remove if you self-host -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
 
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: { sans: ['Inter', 'sans-serif'] },
-            colors: {
-              background: '#000000',
-              card: '#2e2e2e',
-              primary: { DEFAULT: '#1c9197', dark: '#0b6c79' },
-              accent: '#dbbaa3',
-              danger: '#f87171',
-              muted: {
-                DEFAULT: '#2d4447',
-                hover: '#3c595d',
-                border: '#233537',
-                text: '#b0c5c9',
-                'text-strong': '#e0eaec',
-              },
-            },
-          },
-        },
-      }
-    </script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <style>
-      :root {
-        --primary: #1c9197;
-        --background: #000000;
-        --card-bg: #2e2e2e;
-        --accent: #dbbaa3;
-        --text-primary: #ffffff;
-        --border: #233537;
-      }
-      html,
-      body {
-        height: 100%;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: var(--background);
-        color: white;
-      }
-      @keyframes fadeInScale {
-        from {
-          opacity: 0;
-          transform: scale(0.95);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
-      .animate-fade-in-scale {
-        animation: fadeInScale 0.2s ease-out !important;
-      }
-      .report-preview-container {
-        max-height: 65vh;
-        overflow-y: auto;
-        padding: 1rem;
-        background-color: #111;
-        border-radius: 8px;
-      }
-    </style>
-  </head>
+    html, body {
+      height: 100%;
+    }
 
-  <body class="font-sans">
-    <main
-      class="h-screen w-screen flex items-center justify-center bg-background text-white"
-    >
-      <section
-        class="max-w-xl mx-auto p-8 rounded-xl bg-card border border-muted-border shadow-lg animate-fade-in-scale"
-      >
-        <h1 class="text-3xl font-semibold mb-4 text-primary">
-          Charles Intelligence
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #1a1a1a; /* dark background */
+      color: #f5f5f5;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 48px 64px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Logo / mark placeholder using brand teals */
+    .logo {
+      width: 16px;
+      height: 20px;
+      background: #1c9197; /* primary teal */
+      clip-path: polygon(50% 0, 100% 35%, 80% 100%, 20% 100%, 0 35%);
+      margin-bottom: 96px;
+    }
+
+    .eyebrow {
+      letter-spacing: 0.22em;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #0b6c79; /* secondary teal */
+      margin-bottom: 28px;
+      font-weight: 500;
+    }
+
+    .headline-main {
+      font-weight: 700;
+      font-size: 52px;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .headline-sub {
+      font-weight: 700;
+      font-size: 52px;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      color: #dbbaa3; /* accent warm beige to separate from main */
+      margin-bottom: 40px;
+    }
+
+    .body-copy {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #e0e0e0;
+      max-width: 520px;
+      font-weight: 400;
+    }
+
+    .bottom-note {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #888888;
+      font-weight: 500;
+    }
+
+    /* Example usage of danger red for future states (not visible now) */
+    .danger {
+      color: #f87171;
+    }
+
+    .top-block {
+      max-width: 720px;
+    }
+
+    @media (max-width: 768px) {
+      .page {
+        padding: 32px 20px 24px;
+      }
+
+      .logo {
+        margin-bottom: 64px;
+      }
+
+      .headline-main,
+      .headline-sub {
+        font-size: 34px;
+      }
+
+      .body-copy {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div>
+      <div class="logo"></div>
+
+      <div class="top-block">
+        <div class="eyebrow">CHARLES INTELLIGENCE</div>
+
+        <h1 class="headline-main">
+          Agentic property<br />
+          investment<br />
+          intelligence.
         </h1>
-        <h2 class="text-lg mb-6 text-muted-text">
-          Agentic Investment Property Platform
+
+        <h2 class="headline-sub">
+          Built for Australia.
         </h2>
-        <p class="mb-6 text-muted-text">
-          A focused landing page deployed as a static HTML site on Vercel. Update
-          this text with your value proposition and call to action.
+
+        <p class="body-copy">
+          Property is Australia's most significant asset class. It has never
+          had an intelligence layer worthy of it.
         </p>
-        <button
-          class="px-5 py-3 rounded-md bg-primary hover:bg-primary-dark text-white font-medium"
-        >
-          Join the waitlist
-        </button>
-      </section>
-    </main>
-  </body>
+      </div>
+    </div>
+
+    <div class="bottom-note">
+      CURRENTLY IN PRIVATE BETA
+    </div>
+  </div>
+</body>
 </html>
