@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,7 +19,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     /* ─────────────────────────────────────────
-       DESIGN TOKENS — MATCHING CHARLES APP
+       DESIGN TOKENS
     ───────────────────────────────────────── */
     :root {
       --color-bg:             #1a1a1a;
@@ -40,16 +40,6 @@
       --max-width:            1200px;
       --nav-height:           66px;
       --ease:                 200ms ease;
-    }
-    [data-theme="light"] {
-      --color-bg:             #f4f3f0;
-      --color-surface:        #ffffff;
-      --color-surface-2:      #edebe7;
-      --color-surface-offset: #e4e2de;
-      --color-border:         rgba(0,0,0,0.08);
-      --color-border-subtle:  rgba(0,0,0,0.04);
-      --color-text:           #1a1a18;
-      --color-text-muted:     #6b6965;
     }
     /* ─────────────────────────────────────────
        BASE
@@ -147,36 +137,68 @@
       border: 1px solid var(--color-border);
     }
     .btn-ghost:hover { color: var(--color-text); border-color: rgba(255,255,255,0.14); }
-    [data-theme="light"] .btn-ghost:hover { border-color: rgba(0,0,0,0.16); }
-    .theme-toggle {
-      width: 34px;
-      height: 34px;
+    /* Mobile hamburger */
+    .nav-hamburger {
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 34px;
+      height: 34px;
       border-radius: var(--radius);
       background: var(--color-surface-2);
       border: 1px solid var(--color-border);
       color: var(--color-text-muted);
-      transition: color var(--ease), background var(--ease);
+      flex-shrink: 0;
     }
-    .theme-toggle:hover { color: var(--color-text); }
-    .theme-toggle svg { width: 15px; height: 15px; }
-    .icon-sun  { display: none; }
-    .icon-moon { display: block; }
-    [data-theme="light"] .icon-sun  { display: block; }
-    [data-theme="light"] .icon-moon { display: none; }
+    @media (min-width: 768px) { .nav-hamburger { display: none; } }
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      padding: 16px 24px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 0;
+    }
+    .nav-mobile.open { display: flex; }
+    @media (min-width: 768px) { .nav-mobile { display: none !important; } }
+    .nav-mobile a {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-border);
+      transition: color var(--ease);
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { color: var(--color-text); }
     /* ─────────────────────────────────────────
        HERO
     ───────────────────────────────────────── */
     #hero {
-      padding-top: calc(var(--nav-height) + 80px);
-      padding-bottom: 100px;
+      padding-top: calc(var(--nav-height) + 20px);
+      padding-bottom: 56px;
+    }
+    @media (min-width: 768px) {
+      #hero {
+        padding-top: calc(var(--nav-height) + 48px);
+        padding-bottom: 80px;
+      }
+    }
+    @media (min-width: 1024px) {
+      #hero {
+        padding-top: calc(var(--nav-height) + 64px);
+        padding-bottom: 100px;
+      }
     }
     .hero-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 56px;
+      gap: 48px;
       align-items: center;
     }
     @media (min-width: 1024px) {
@@ -205,7 +227,7 @@
       50% { opacity: 0.45; transform: scale(0.75); }
     }
     .hero-headline {
-      font-size: clamp(36px, 5vw, 56px);
+      font-size: clamp(32px, 5vw, 56px);
       font-weight: 800;
       line-height: 1.08;
       letter-spacing: -0.03em;
@@ -228,6 +250,9 @@
     }
     .btn-lg { padding: 11px 22px; font-size: 15px; font-weight: 600; }
     .btn-lg-ghost { padding: 11px 22px; font-size: 15px; }
+    /* Dashboard mockup: desktop only */
+    .hero-mockup-wrap { display: none; }
+    @media (min-width: 1024px) { .hero-mockup-wrap { display: block; } }
     /* ─────────────────────────────────────────
        CHARLES DASHBOARD MOCKUP
     ───────────────────────────────────────── */
@@ -251,10 +276,7 @@
       border-bottom: 1px solid var(--color-border);
     }
     .dm-chrome-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--color-border); }
-    .dm-layout {
-      display: flex;
-      min-height: 360px;
-    }
+    .dm-layout { display: flex; min-height: 360px; }
     .dm-advisor {
       width: 160px;
       flex-shrink: 0;
@@ -274,21 +296,6 @@
     }
     .dm-advisor-name { font-size: 11px; font-weight: 600; color: var(--color-text); }
     .dm-advisor-role { font-size: 10px; color: var(--color-text-muted); }
-    .dm-signal {
-      padding: 8px;
-      background: var(--color-surface-2);
-      border-radius: 6px;
-      border: 1px solid var(--color-border);
-    }
-    .dm-signal-label {
-      font-size: 9px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--color-primary);
-      margin-bottom: 4px;
-    }
-    .dm-signal-text { font-size: 10px; line-height: 1.45; color: var(--color-text-muted); }
     .dm-bubble {
       padding: 8px;
       background: var(--color-surface-offset);
@@ -317,7 +324,6 @@
     .dm-title { font-size: 13px; font-weight: 700; color: var(--color-text); letter-spacing: -0.01em; }
     .dm-tabs {
       display: flex;
-      gap: 0;
       border-bottom: 1px solid var(--color-border);
       overflow-x: auto;
       scrollbar-width: none;
@@ -330,7 +336,6 @@
       color: var(--color-text-muted);
       white-space: nowrap;
       border-bottom: 2px solid transparent;
-      transition: color var(--ease), border-color var(--ease);
       cursor: default;
     }
     .dm-tab.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
@@ -345,7 +350,7 @@
     }
     .dm-kpi {
       background: var(--color-surface);
-      padding: 10px 10px;
+      padding: 10px;
       opacity: 0;
       transform: translateY(4px);
       transition: opacity 250ms ease, transform 250ms ease;
@@ -355,9 +360,8 @@
     .dm-kpi-value { font-size: 14px; font-weight: 700; line-height: 1; }
     .dm-kpi-sub { font-size: 9px; color: var(--color-text-muted); margin-top: 3px; }
     .val-teal   { color: var(--color-primary); }
-    .val-accent { color: var(--color-accent); }
-    .val-danger { color: var(--color-danger); }
     .val-white  { color: var(--color-text); }
+    .val-danger { color: var(--color-danger); }
     .dm-properties {
       margin: 0 12px 12px;
       border: 1px solid var(--color-border);
@@ -399,12 +403,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .dm-prop-rent {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--color-primary);
-      white-space: nowrap;
-    }
+    .dm-prop-rent { font-size: 10px; font-weight: 600; color: var(--color-primary); white-space: nowrap; }
     .dm-prop-status {
       font-size: 8px;
       font-weight: 600;
@@ -414,352 +413,9 @@
       border-radius: 3px;
       white-space: nowrap;
     }
-    .dm-status-occupied {
-      background: rgba(28,145,151,0.12);
-      color: var(--color-primary);
-    }
-    .dm-status-vacant {
-      background: rgba(248,113,113,0.12);
-      color: var(--color-danger);
-    }
-    /* ─────────────────────────────────────────
-       SECTION SHARED
-    ───────────────────────────────────────── */
-    .section-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-      margin-bottom: 18px;
-    }
-    .section-headline {
-      font-size: clamp(30px, 4vw, 44px);
-      font-weight: 800;
-      line-height: 1.12;
-      letter-spacing: -0.03em;
-      color: var(--color-text);
-      max-width: 660px;
-      margin-bottom: 18px;
-    }
-    .section-headline em { font-style: normal; font-weight: 400; color: var(--color-text-muted); }
-    .section-intro {
-      font-size: 16px;
-      line-height: 1.65;
-      color: var(--color-text-muted);
-      max-width: 560px;
-      margin-bottom: 56px;
-    }
-    .fade-up {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .fade-up.in-view { opacity: 1; transform: translateY(0); }
-    .delay-1 { transition-delay: 0.1s; }
-    .delay-2 { transition-delay: 0.2s; }
-    .delay-3 { transition-delay: 0.3s; }
-    /* ─────────────────────────────────────────
-       PROBLEM
-    ───────────────────────────────────────── */
-    #problem {
-      padding: 120px 0;
-      border-top: 1px solid var(--color-border);
-    }
-    .problem-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2px;
-    }
-    @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
-    .problem-card {
-      background: var(--color-surface-offset);
-      padding: 36px 30px;
-    }
-    .problem-card:first-child { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
-    .problem-card:last-child  { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
-    @media (min-width: 768px) {
-      .problem-card:first-child { border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
-      .problem-card:nth-child(2) { border-radius: 0; }
-      .problem-card:last-child  { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
-    }
-    .problem-stat {
-      font-size: clamp(42px, 5vw, 60px);
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -0.03em;
-      color: var(--color-text);
-      margin-bottom: 14px;
-    }
-    .problem-stat .accent { color: var(--color-primary); }
-    .problem-desc { font-size: 14px; line-height: 1.6; color: var(--color-text-muted); }
-    .problem-desc strong { color: var(--color-text); font-weight: 600; }
-    .problem-narrative {
-      margin-top: 56px;
-      padding-top: 40px;
-      border-top: 1px solid var(--color-border);
-    }
-    .problem-narrative p {
-      font-size: 18px;
-      line-height: 1.7;
-      color: var(--color-text-muted);
-      max-width: 680px;
-    }
-    .problem-narrative strong { color: var(--color-text); }
-    /* ─────────────────────────────────────────
-       FEATURES
-    ───────────────────────────────────────── */
-    #platform {
-      padding: 120px 0;
-      border-top: 1px solid var(--color-border);
-    }
-    .feature-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2px;
-    }
-    @media (min-width: 768px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
-    .feature-card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: 38px 34px;
-      transition: border-color var(--ease);
-    }
-    .feature-card:hover { border-color: rgba(255,255,255,0.13); }
-    [data-theme="light"] .feature-card:hover { border-color: rgba(0,0,0,0.14); }
-    .feature-card-large {
-      grid-column: 1 / -1;
-      display: grid;
-      gap: 36px;
-    }
-    @media (min-width: 768px) {
-      .feature-card-large { grid-template-columns: 1fr 1fr; align-items: center; }
-    }
-    .feature-tag {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-      margin-bottom: 16px;
-      display: block;
-    }
-    .feature-headline {
-      font-size: clamp(22px, 3vw, 28px);
-      font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.025em;
-      color: var(--color-text);
-      margin-bottom: 14px;
-    }
-    .feature-desc { font-size: 15px; line-height: 1.65; color: var(--color-text-muted); }
-    .feature-data-panel {
-      background: var(--color-surface-2);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      padding: 18px;
-    }
-    .fdp-header {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--color-text-muted);
-      margin-bottom: 12px;
-    }
-    .fdp-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 10px;
-      background: var(--color-surface-offset);
-      border-radius: 5px;
-      margin-bottom: 4px;
-      font-size: 12px;
-    }
-    .fdp-row:last-child { margin-bottom: 0; }
-    .fdp-label { color: var(--color-text-muted); }
-    .fdp-value { font-weight: 600; color: var(--color-text); }
-    .fdp-up   { font-size: 10px; color: #4ade80; font-weight: 500; }
-    .fdp-down { font-size: 10px; color: var(--color-danger); font-weight: 500; }
-    /* ─────────────────────────────────────────
-       HOW IT WORKS
-    ───────────────────────────────────────── */
-    #how-it-works {
-      padding: 120px 0;
-      border-top: 1px solid var(--color-border);
-    }
-    .steps-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      margin-top: 56px;
-    }
-    @media (min-width: 768px) { .steps-grid { grid-template-columns: repeat(3, 1fr); } }
-    .step {
-      padding: 36px 30px;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      position: relative;
-    }
-    .step:first-child { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
-    .step:last-child  { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
-    .step + .step { border-top: none; }
-    @media (min-width: 768px) {
-      .step:first-child { border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
-      .step:nth-child(2) { border-radius: 0; }
-      .step:last-child  { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
-      .step + .step { border-top: 1px solid var(--color-border); border-left: none; }
-    }
-    .step-num {
-      font-size: 40px;
-      font-weight: 800;
-      line-height: 1;
-      color: var(--color-border);
-      margin-bottom: 18px;
-      letter-spacing: -0.04em;
-    }
-    .step-connector { display: none; }
-    @media (min-width: 768px) {
-      .step-connector {
-        display: block;
-        position: absolute;
-        top: 50%;
-        right: -18px;
-        transform: translateY(-50%);
-        z-index: 2;
-      }
-      .step-connector svg { width: 36px; height: 20px; }
-    }
-    .step-headline { font-size: 16px; font-weight: 600; color: var(--color-text); margin-bottom: 10px; line-height: 1.3; }
-    .step-desc { font-size: 14px; line-height: 1.6; color: var(--color-text-muted); }
-    /* ─────────────────────────────────────────
-       CREDIBILITY
-    ───────────────────────────────────────── */
-    #credibility {
-      padding: 80px 0;
-      border-top: 1px solid var(--color-border);
-    }
-    .cred-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--color-text-muted);
-      text-align: center;
-      margin-bottom: 32px;
-    }
-    .cred-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
-    }
-    @media (min-width: 768px) { .cred-grid { grid-template-columns: repeat(4, 1fr); } }
-    .cred-item {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      padding: 26px 22px;
-      text-align: center;
-    }
-    .cred-item:first-child { border-radius: var(--radius-lg) 0 0 0; }
-    .cred-item:nth-child(2) { border-radius: 0 var(--radius-lg) 0 0; }
-    .cred-item:nth-child(3) { border-radius: 0 0 0 var(--radius-lg); }
-    .cred-item:last-child   { border-radius: 0 0 var(--radius-lg) 0; }
-    @media (min-width: 768px) {
-      .cred-item:first-child  { border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
-      .cred-item:nth-child(2) { border-radius: 0; }
-      .cred-item:nth-child(3) { border-radius: 0; }
-      .cred-item:last-child   { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
-    }
-    .cred-title { font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 5px; }
-    .cred-desc  { font-size: 12px; color: var(--color-text-muted); line-height: 1.5; }
-    /* ─────────────────────────────────────────
-       CTA
-    ───────────────────────────────────────── */
-    #cta { padding: 120px 0; }
-    .cta-inner {
-      background: var(--color-primary);
-      border-radius: var(--radius-lg);
-      padding: 68px 56px;
-      overflow: hidden;
-      position: relative;
-    }
-    @media (max-width: 767px) { .cta-inner { padding: 44px 24px; } }
-    .cta-headline {
-      font-size: clamp(30px, 4vw, 48px);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      color: #fff;
-      margin-bottom: 14px;
-      max-width: 520px;
-    }
-    .cta-sub {
-      font-size: 16px;
-      color: rgba(255,255,255,0.68);
-      margin-bottom: 36px;
-      max-width: 420px;
-    }
-    .cta-form {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      max-width: 460px;
-    }
-    .cta-input {
-      flex: 1;
-      min-width: 200px;
-      padding: 11px 15px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(0,0,0,0.2);
-      color: #fff;
-      font-size: 15px;
-      outline: none;
-      transition: border-color var(--ease);
-    }
-    .cta-input::placeholder { color: rgba(255,255,255,0.42); }
-    .cta-input:focus { border-color: rgba(255,255,255,0.5); }
-    .cta-btn {
-      padding: 11px 20px;
-      border-radius: var(--radius);
-      background: #fff;
-      color: var(--color-primary);
-      font-size: 15px;
-      font-weight: 600;
-      white-space: nowrap;
-      border: none;
-      cursor: pointer;
-      transition: background var(--ease);
-    }
-    .cta-btn:hover { background: #f0fffe; }
-    .cta-note { margin-top: 12px; font-size: 13px; color: rgba(255,255,255,0.45); }
-    /* ─────────────────────────────────────────
-       FOOTER
-    ───────────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--color-border);
-      padding: 36px 0;
-    }
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .footer-left { display: flex; align-items: center; gap: 14px; }
-    .footer-meta { font-size: 13px; color: var(--color-text-muted); }
-    .footer-links { display: flex; gap: 20px; list-style: none; }
-    .footer-links a { font-size: 13px; color: var(--color-text-muted); transition: color var(--ease); }
-    .footer-links a:hover { color: var(--color-text); }
-    .visually-hidden {
-      position: absolute; width: 1px; height: 1px;
-      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
-    }
-    /* ─────────────────────────────────────────
-       TRIAGE CARDS (advisor panel)
-    ───────────────────────────────────────── */
+    .dm-status-occupied { background: rgba(28,145,151,0.12); color: var(--color-primary); }
+    .dm-status-vacant   { background: rgba(248,113,113,0.12); color: var(--color-danger); }
+    /* Triage cards */
     .dm-triage {
       padding: 7px;
       border-radius: 5px;
@@ -802,17 +458,429 @@
       border: 1px solid var(--color-border);
       color: var(--color-text-muted);
     }
+    /* ─────────────────────────────────────────
+       SECTION SHARED
+    ───────────────────────────────────────── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 18px;
+    }
+    .section-headline {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      max-width: 660px;
+      margin-bottom: 18px;
+    }
+    .section-headline em { font-style: normal; font-weight: 400; color: var(--color-text-muted); }
+    .section-intro {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--color-text-muted);
+      max-width: 560px;
+      margin-bottom: 56px;
+    }
+    .fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-up.in-view { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    /* ─────────────────────────────────────────
+       PROBLEM
+    ───────────────────────────────────────── */
+    #problem {
+      padding: 100px 0;
+      border-top: 1px solid var(--color-border);
+    }
+    @media (min-width: 768px) { #problem { padding: 120px 0; } }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+    @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
+    .problem-card {
+      background: var(--color-surface-offset);
+      padding: 32px 24px;
+    }
+    @media (min-width: 768px) { .problem-card { padding: 36px 30px; } }
+    .problem-card:first-child { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+    .problem-card:last-child  { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+    @media (min-width: 768px) {
+      .problem-card:first-child { border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
+      .problem-card:nth-child(2) { border-radius: 0; }
+      .problem-card:last-child  { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+    }
+    .problem-stat {
+      font-size: clamp(40px, 5vw, 60px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      margin-bottom: 14px;
+    }
+    .problem-stat .accent { color: var(--color-primary); }
+    .problem-desc { font-size: 14px; line-height: 1.6; color: var(--color-text-muted); }
+    .problem-desc strong { color: var(--color-text); font-weight: 600; }
+    .problem-narrative {
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid var(--color-border);
+    }
+    .problem-narrative p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--color-text-muted);
+      max-width: 680px;
+    }
+    @media (min-width: 768px) { .problem-narrative p { font-size: 18px; } }
+    .problem-narrative strong { color: var(--color-text); }
+    /* ─────────────────────────────────────────
+       FEATURES
+    ───────────────────────────────────────── */
+    #platform {
+      padding: 100px 0;
+      border-top: 1px solid var(--color-border);
+    }
+    @media (min-width: 768px) { #platform { padding: 120px 0; } }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+    @media (min-width: 768px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
+    .feature-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      transition: border-color var(--ease);
+    }
+    @media (min-width: 768px) { .feature-card { padding: 38px 34px; } }
+    .feature-card:hover { border-color: rgba(255,255,255,0.13); }
+    .feature-card-large {
+      grid-column: 1 / -1;
+      display: grid;
+      gap: 32px;
+    }
+    @media (min-width: 768px) {
+      .feature-card-large { grid-template-columns: 1fr 1fr; align-items: center; gap: 48px; }
+    }
+    .feature-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .feature-headline {
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      color: var(--color-text);
+      margin-bottom: 14px;
+    }
+    .feature-desc { font-size: 15px; line-height: 1.65; color: var(--color-text-muted); }
+    /* Portfolio monitor panel */
+    .feature-monitor-panel {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .fmp-header {
+      padding: 10px 14px;
+      background: var(--color-surface-offset);
+      border-bottom: 1px solid var(--color-border);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+    .fmp-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .fmp-row:last-child { border-bottom: none; }
+    .fmp-badge {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .fmp-danger .fmp-badge { background: rgba(248,113,113,0.12); color: var(--color-danger); }
+    .fmp-primary .fmp-badge { background: rgba(28,145,151,0.12); color: var(--color-primary); }
+    .fmp-accent .fmp-badge { background: rgba(219,186,163,0.12); color: var(--color-accent); }
+    .fmp-detail { font-size: 11px; line-height: 1.45; color: var(--color-text); }
+    .fmp-address { font-size: 10px; color: var(--color-text-muted); margin-top: 2px; }
+    /* ─────────────────────────────────────────
+       HOW IT WORKS
+    ───────────────────────────────────────── */
+    #how-it-works {
+      padding: 100px 0;
+      border-top: 1px solid var(--color-border);
+    }
+    @media (min-width: 768px) { #how-it-works { padding: 120px 0; } }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      margin-top: 56px;
+    }
+    @media (min-width: 768px) { .steps-grid { grid-template-columns: repeat(3, 1fr); } }
+    .step {
+      padding: 32px 24px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      position: relative;
+    }
+    @media (min-width: 768px) { .step { padding: 36px 30px; } }
+    .step:first-child { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+    .step:last-child  { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+    .step + .step { border-top: none; }
+    @media (min-width: 768px) {
+      .step:first-child { border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
+      .step:nth-child(2) { border-radius: 0; }
+      .step:last-child  { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+      .step + .step { border-top: 1px solid var(--color-border); border-left: none; }
+    }
+    .step-num {
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--color-border);
+      margin-bottom: 18px;
+      letter-spacing: -0.04em;
+    }
+    .step-connector { display: none; }
+    @media (min-width: 768px) {
+      .step-connector {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: -18px;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+      .step-connector svg { width: 36px; height: 20px; }
+    }
+    .step-headline { font-size: 16px; font-weight: 600; color: var(--color-text); margin-bottom: 10px; line-height: 1.3; }
+    .step-desc { font-size: 14px; line-height: 1.6; color: var(--color-text-muted); }
+    /* ─────────────────────────────────────────
+       CREDIBILITY
+    ───────────────────────────────────────── */
+    #credibility {
+      padding: 100px 0;
+      border-top: 1px solid var(--color-border);
+    }
+    @media (min-width: 768px) { #credibility { padding: 120px 0; } }
+    .cred-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 18px;
+    }
+    .cred-intro {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--color-text-muted);
+      max-width: 560px;
+      margin-bottom: 56px;
+    }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+      margin-bottom: 56px;
+    }
+    @media (min-width: 768px) { .profile-grid { grid-template-columns: repeat(3, 1fr); } }
+    .profile-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      padding: 30px 26px;
+    }
+    @media (min-width: 768px) { .profile-card { padding: 34px 30px; } }
+    .profile-card:first-child { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+    .profile-card:last-child  { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+    @media (min-width: 768px) {
+      .profile-card:first-child { border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
+      .profile-card:nth-child(2) { border-radius: 0; }
+      .profile-card:last-child  { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+    }
+    .profile-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .profile-headline {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.3;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .profile-desc {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--color-text-muted);
+    }
+    .cred-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin-bottom: 40px;
+    }
+    .cred-sub-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 24px;
+    }
+    .cred-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+    @media (min-width: 768px) { .cred-grid { grid-template-columns: repeat(4, 1fr); } }
+    .cred-item {
+      background: var(--color-surface-offset);
+      border: 1px solid var(--color-border);
+      padding: 22px 18px;
+    }
+    @media (min-width: 768px) { .cred-item { padding: 24px 20px; } }
+    .cred-item:first-child { border-radius: var(--radius-lg) 0 0 0; }
+    .cred-item:nth-child(2) { border-radius: 0 var(--radius-lg) 0 0; }
+    .cred-item:nth-child(3) { border-radius: 0 0 0 var(--radius-lg); }
+    .cred-item:last-child   { border-radius: 0 0 var(--radius-lg) 0; }
+    @media (min-width: 768px) {
+      .cred-item:first-child  { border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
+      .cred-item:nth-child(2) { border-radius: 0; }
+      .cred-item:nth-child(3) { border-radius: 0; }
+      .cred-item:last-child   { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+    }
+    .cred-title { font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 5px; }
+    .cred-desc  { font-size: 12px; color: var(--color-text-muted); line-height: 1.5; }
+    /* ─────────────────────────────────────────
+       CTA
+    ───────────────────────────────────────── */
+    #cta { padding: 100px 0; }
+    @media (min-width: 768px) { #cta { padding: 120px 0; } }
+    .cta-inner {
+      background: var(--color-primary);
+      border-radius: var(--radius-lg);
+      padding: 44px 24px;
+    }
+    @media (min-width: 768px) { .cta-inner { padding: 68px 56px; } }
+    .cta-headline {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 14px;
+      max-width: 520px;
+    }
+    .cta-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.68);
+      margin-bottom: 36px;
+      max-width: 420px;
+      line-height: 1.6;
+    }
+    .cta-form {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      max-width: 460px;
+    }
+    .cta-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 11px 15px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.2);
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      transition: border-color var(--ease);
+    }
+    .cta-input::placeholder { color: rgba(255,255,255,0.42); }
+    .cta-input:focus { border-color: rgba(255,255,255,0.5); }
+    .cta-btn {
+      padding: 11px 20px;
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--color-primary);
+      font-size: 15px;
+      font-weight: 600;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      transition: background var(--ease);
+    }
+    .cta-btn:hover { background: #f0fffe; }
+    .cta-note { margin-top: 12px; font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--color-border);
+      padding: 36px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-left { display: flex; align-items: center; gap: 14px; }
+    .footer-meta { font-size: 13px; color: var(--color-text-muted); }
+    .footer-links { display: flex; gap: 20px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--color-text-muted); transition: color var(--ease); }
+    .footer-links a:hover { color: var(--color-text); }
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+    }
   </style>
 </head>
 <body>
-  <!-- ═══════════════════════════════════════
-       NAV
-  ═══════════════════════════════════════ -->
+  <!-- NAV -->
   <nav role="navigation" aria-label="Main navigation">
     <div class="container">
       <div class="nav-inner">
         <a href="/" class="nav-logo" aria-label="Charles Intelligence home">
-          <svg width="26" height="26" viewBox="0 0 100 100" fill="none" role="img" aria-label="Charles AI Logo">
+          <svg width="26" height="26" viewBox="0 0 100 100" fill="none" role="img" aria-label="Charles logo">
             <defs>
               <linearGradient id="cg-nav" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#1c9197"/>
@@ -828,19 +896,13 @@
           <li><a href="#platform">Platform</a></li>
           <li><a href="#how-it-works">How It Works</a></li>
           <li><a href="#credibility">Who It's For</a></li>
-          <li><a href="#cta">Early Access</a></li>
         </ul>
         <div class="nav-right">
-          <button class="theme-toggle" id="themeToggle" aria-label="Toggle colour theme">
-            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="5"/>
-              <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-              <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-            </svg>
-            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+              <line x1="2" y1="4" x2="14" y2="4"/>
+              <line x1="2" y1="8" x2="14" y2="8"/>
+              <line x1="2" y1="12" x2="14" y2="12"/>
             </svg>
           </button>
           <a href="#cta" class="btn btn-primary">Request Early Access</a>
@@ -848,18 +910,20 @@
       </div>
     </div>
   </nav>
-  <!-- ═══════════════════════════════════════
-       HERO
-  ═══════════════════════════════════════ -->
+
+  <!-- Mobile nav drawer -->
+  <div class="nav-mobile" id="navMobile" role="navigation" aria-label="Mobile navigation">
+    <a href="#platform" onclick="closeMobileNav()">Platform</a>
+    <a href="#how-it-works" onclick="closeMobileNav()">How It Works</a>
+    <a href="#credibility" onclick="closeMobileNav()">Who It's For</a>
+  </div>
+
+  <!-- HERO -->
   <section id="hero" aria-labelledby="hero-headline">
     <div class="container">
       <div class="hero-grid">
         <div>
-          <div class="hero-eyebrow">
-            <span class="eyebrow-dot" aria-hidden="true"></span>
-            Early access open for Australian investors
-          </div>
-          <h1 class="hero-headline" id="hero-headline">
+<h1 class="hero-headline" id="hero-headline">
             Your property investments deserve better intelligence than a quarterly statement <em>and a Saturday phone call.</em>
           </h1>
           <p class="hero-sub">
@@ -870,8 +934,8 @@
             <a href="#how-it-works" class="btn btn-ghost btn-lg-ghost">See How It Works</a>
           </div>
         </div>
-        <!-- Animated dashboard mockup -->
-        <div aria-hidden="true">
+        <!-- Animated dashboard mockup: desktop only -->
+        <div class="hero-mockup-wrap" aria-hidden="true">
           <div class="dashboard-mockup" id="dashboardMockup">
             <div class="dm-chrome">
               <div class="dm-chrome-dot"></div>
@@ -879,10 +943,9 @@
               <div class="dm-chrome-dot"></div>
             </div>
             <div class="dm-layout">
-              <!-- Left: Charles advisor panel -->
               <div class="dm-advisor">
                 <div class="dm-advisor-header">
-                  <svg width="18" height="18" viewBox="0 0 100 100" fill="none" role="img" aria-label="Charles AI Logo">
+                  <svg width="18" height="18" viewBox="0 0 100 100" fill="none">
                     <defs>
                       <linearGradient id="cg-dm" x1="0%" y1="0%" x2="0%" y2="100%">
                         <stop offset="0%" stop-color="#1c9197"/>
@@ -919,11 +982,10 @@
                   Your three-property portfolio holds a net positive of $30,255. Two compliance items require your attention this week.
                 </div>
               </div>
-              <!-- Right: main dashboard -->
               <div class="dm-main">
                 <div class="dm-topbar">
                   <span class="dm-title">Charles Intelligence</span>
-                  <span style="font-size:10px; color:var(--color-text-muted); background:var(--color-surface-2); padding:3px 8px; border-radius:4px; border:1px solid var(--color-border);">All portfolios</span>
+                  <span style="font-size:10px;color:var(--color-text-muted);background:var(--color-surface-2);padding:3px 8px;border-radius:4px;border:1px solid var(--color-border);">All portfolios</span>
                 </div>
                 <div class="dm-tabs">
                   <span class="dm-tab active">Overview</span>
@@ -961,7 +1023,7 @@
                 <div class="dm-properties" id="dmRiskCard">
                   <div class="dm-prop-header">
                     <span>Properties</span>
-                    <span style="font-weight:400; color:var(--color-text-muted);">3 assets</span>
+                    <span style="font-weight:400;color:var(--color-text-muted);">3 assets</span>
                   </div>
                   <div class="dm-prop-row">
                     <span class="dm-prop-address">12 Castlereagh St, Sydney NSW</span>
@@ -986,9 +1048,8 @@
       </div>
     </div>
   </section>
-  <!-- ═══════════════════════════════════════
-       PROBLEM
-  ═══════════════════════════════════════ -->
+
+  <!-- PROBLEM -->
   <section id="problem" aria-labelledby="problem-headline">
     <div class="container">
       <p class="section-label">The Problem</p>
@@ -1018,19 +1079,18 @@
           </p>
         </div>
       </div>
-      <p class="fade-up" style="font-size:12px; color:var(--color-text-muted); margin-top:16px; margin-bottom:0;">
+      <p class="fade-up" style="font-size:12px;color:var(--color-text-muted);margin-top:16px;margin-bottom:0;">
         <em>Sources: PIPA Annual Investor Sentiment Survey 2025 (n=854); RBA Bulletin May 2026, Michielsen (ABS PLIDA-WHAM full population administrative data).</em>
       </p>
       <div class="problem-narrative fade-up">
         <p>
-          More Australian investors are selling than at any point in the last decade — not because the economics are wrong, but because <strong>holding is too hard.</strong> Compliance obligations, lease renewals, cash flow uncertainty, no consolidated view. The operational burden compounds quietly until it isn't worth it anymore. <strong>Institutional investors deploy teams of analysts and proprietary data systems</strong> to manage the same decisions you make alone, with a REA search and a Saturday phone call. That asymmetry is what Charles is built to close.
+          More Australian investors are selling than at any point in the last decade. Not because the economics are wrong. Because <strong>holding is too hard.</strong> Compliance obligations, lease renewals, cash flow uncertainty, no consolidated view. The operational burden compounds quietly until it isn't worth it anymore. <strong>Institutional investors deploy teams of analysts and proprietary data systems</strong> to manage the same decisions individual investors make with incomplete information, at the end of each quarter. That asymmetry is what Charles is built to close.
         </p>
       </div>
     </div>
   </section>
-  <!-- ═══════════════════════════════════════
-       PLATFORM
-  ═══════════════════════════════════════ -->
+
+  <!-- PLATFORM -->
   <section id="platform" aria-labelledby="platform-headline">
     <div class="container">
       <p class="section-label">The Platform</p>
@@ -1038,43 +1098,46 @@
         The intelligence layer <em>your portfolio never had.</em>
       </h2>
       <p class="section-intro fade-up delay-1">
-        Charles is built around one idea: monitor your portfolio every day, surface issues before they compound, and tell you what to do — without waiting to be asked.
+        Charles is built around one idea: monitor your portfolio every day, surface issues before they compound, and tell you what to do. Without being asked.
       </p>
       <div class="feature-grid">
         <div class="feature-card feature-card-large fade-up">
           <div>
-            <span class="feature-tag">Agentic Market Intelligence</span>
-            <h3 class="feature-headline">Continuous suburb surveillance. Not a one-time search.</h3>
+            <span class="feature-tag">Agentic Portfolio Monitoring</span>
+            <h3 class="feature-headline">Every obligation, every deadline, every property. Watched daily.</h3>
             <p class="feature-desc">
-              Charles monitors suburb trends, comparable sales, rental yields, days-on-market, and macro signals across your watchlist. What matters surfaces when it matters. Not a report you request; an intelligence layer that runs continuously.
+              Charles tracks lease renewals, compliance deadlines, rent reviews, vacancy days, and cash flow position across every holding. It doesn't wait for you to check in. When something needs attention, you receive a brief that names the issue, shows the numbers, and proposes what to do next.
             </p>
           </div>
-          <div class="feature-data-panel">
-            <div class="fdp-header">Live Signal Stream: Inner West Sydney</div>
-            <div class="fdp-row">
-              <span class="fdp-label">Drummoyne median, 3-bed</span>
-              <span class="fdp-value">$1.18M</span>
-              <span class="fdp-up">+2.3%</span>
+          <div class="feature-monitor-panel">
+            <div class="fmp-header">Charles is watching</div>
+            <div class="fmp-row fmp-danger">
+              <span class="fmp-badge">Overdue</span>
+              <div>
+                <div class="fmp-detail">Insurance cert expired 23 days ago.</div>
+                <div class="fmp-address">12 Castlereagh St, Sydney NSW</div>
+              </div>
             </div>
-            <div class="fdp-row">
-              <span class="fdp-label">Rental vacancy rate</span>
-              <span class="fdp-value">1.8%</span>
-              <span class="fdp-down">-0.2%</span>
+            <div class="fmp-row fmp-primary">
+              <span class="fmp-badge">14 days</span>
+              <div>
+                <div class="fmp-detail">Lease renewal due.</div>
+                <div class="fmp-address">3 Vulture St, West End QLD</div>
+              </div>
             </div>
-            <div class="fdp-row">
-              <span class="fdp-label">Days on market (avg)</span>
-              <span class="fdp-value">22 days</span>
-              <span class="fdp-down">-4 days</span>
+            <div class="fmp-row fmp-accent">
+              <span class="fmp-badge">8 Aug</span>
+              <div>
+                <div class="fmp-detail">Rent review date.</div>
+                <div class="fmp-address">8 Greenhill Rd, Parkside SA</div>
+              </div>
             </div>
-            <div class="fdp-row">
-              <span class="fdp-label">Gross yield</span>
-              <span class="fdp-value">4.1%</span>
-              <span class="fdp-up">+0.3%</span>
-            </div>
-            <div class="fdp-row">
-              <span class="fdp-label">New listings (30d)</span>
-              <span class="fdp-value">14</span>
-              <span style="font-size:10px;color:var(--color-text-muted);">tight supply</span>
+            <div class="fmp-row fmp-danger">
+              <span class="fmp-badge">Day 15</span>
+              <div>
+                <div class="fmp-detail">Vacancy. No tenant in place.</div>
+                <div class="fmp-address">8 Greenhill Rd, Parkside SA</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1095,9 +1158,8 @@
       </div>
     </div>
   </section>
-  <!-- ═══════════════════════════════════════
-       HOW IT WORKS
-  ═══════════════════════════════════════ -->
+
+  <!-- HOW IT WORKS -->
   <section id="how-it-works" aria-labelledby="how-headline">
     <div class="container">
       <p class="section-label">How It Works</p>
@@ -1123,7 +1185,7 @@
         <div class="step">
           <div class="step-num">02</div>
           <h3 class="step-headline">Charles monitors your portfolio continuously</h3>
-          <p class="step-desc">Market intelligence, lease obligations, compliance deadlines, yield benchmarks, cash flow position. Charles covers every asset, every day. Not when you remember to check.</p>
+          <p class="step-desc">Lease obligations, compliance deadlines, rent review dates, yield benchmarks, cash flow position. Charles covers every asset, every day. Not when you remember to check.</p>
           <div class="step-connector" aria-hidden="true">
             <svg viewBox="0 0 36 20" fill="none">
               <path d="M2 10H28M24 5L34 10L24 15" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1140,12 +1202,32 @@
       </div>
     </div>
   </section>
-  <!-- ═══════════════════════════════════════
-       CREDIBILITY
-  ═══════════════════════════════════════ -->
+
+  <!-- CREDIBILITY / WHO IT'S FOR -->
   <section id="credibility" aria-labelledby="cred-heading">
     <div class="container">
-      <p class="cred-label" id="cred-heading">Built for the Australian market</p>
+      <p class="cred-label" id="cred-heading">Who It's For</p>
+      <h2 class="section-headline fade-up">Investors who take property seriously <em>and are tired of running it manually.</em></h2>
+      <p class="cred-intro fade-up delay-1">Charles is built for the Australian investor who holds property as a serious wealth vehicle, not a side project. These investors are serious. The intelligence infrastructure available to them hasn't kept up with the scale of what they own. The analytical depth they need, institutional investors purchase. Charles makes it available to the individual.</p>
+      <div class="profile-grid fade-up delay-2">
+        <div class="profile-card">
+          <span class="profile-tag">The portfolio builder</span>
+          <div class="profile-headline">Started with one property. Now has four. No consolidated view of any of it.</div>
+          <p class="profile-desc">Compliance dates scattered across email. Lease renewals flagged with calendar reminders that get dismissed. Rent reviews missed because nobody was watching. Charles brings the whole portfolio into one place and watches it every day.</p>
+        </div>
+        <div class="profile-card">
+          <span class="profile-tag">The self-managing investor</span>
+          <div class="profile-headline">Knows their tenants well. Doesn't always know what the legislation requires of them this month.</div>
+          <p class="profile-desc">Tenancy law varies by state and changes regularly. Entry notice periods, rent increase caps, repair obligations. Charles tracks the compliance obligations that apply to each property and surfaces them before they become a problem.</p>
+        </div>
+        <div class="profile-card">
+          <span class="profile-tag">The time-poor professional</span>
+          <div class="profile-headline">High conviction in property. Not enough hours in the week to be properly across it.</div>
+          <p class="profile-desc">Strong income, three to six properties, a clear investment thesis. The day job makes it hard to stay across what's happening in the portfolio. Charles runs the watch so you don't have to. You get a brief when something needs your attention.</p>
+        </div>
+      </div>
+      <hr class="cred-divider" />
+      <p class="cred-sub-label">Built differently.</p>
       <div class="cred-grid fade-up">
         <div class="cred-item">
           <div class="cred-title">APRA/ASIC-aware framework</div>
@@ -1160,15 +1242,14 @@
           <div class="cred-desc">Every data point is traceable. Charles cites sources and flags low-confidence signals.</div>
         </div>
         <div class="cred-item">
-          <div class="cred-title">Builds institutional memory</div>
-          <div class="cred-desc">Charles remembers every lease, negotiation, and outcome. The longer it runs, the more precisely it knows your portfolio.</div>
+          <div class="cred-title">Acts on your instruction</div>
+          <div class="cred-desc">Charles drafts communications, proposes next steps, and can act when you ask. You approve before anything goes out.</div>
         </div>
       </div>
     </div>
   </section>
-  <!-- ═══════════════════════════════════════
-       CTA
-  ═══════════════════════════════════════ -->
+
+  <!-- CTA -->
   <section id="cta" aria-labelledby="cta-headline">
     <div class="container">
       <div class="cta-inner">
@@ -1180,19 +1261,18 @@
             placeholder="your@email.com.au" required autocomplete="email" />
           <button type="submit" class="cta-btn">Apply for Access</button>
         </form>
-        <p class="cta-note" id="ctaNote">Charles isn't a dashboard you log into. Onboarding is deliberate — which is why founding cohort places are limited.</p>
+        <p class="cta-note" id="ctaNote">Charles isn't a dashboard you log into. Onboarding is deliberate, which is why founding cohort places are limited.</p>
       </div>
     </div>
   </section>
-  <!-- ═══════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════ -->
+
+  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-inner">
         <div class="footer-left">
           <a href="/" aria-label="Charles Intelligence home">
-            <svg width="20" height="20" viewBox="0 0 100 100" fill="none" role="img" aria-label="Charles AI Logo">
+            <svg width="20" height="20" viewBox="0 0 100 100" fill="none">
               <defs>
                 <linearGradient id="cg-ft" x1="0%" y1="0%" x2="0%" y2="100%">
                   <stop offset="0%" stop-color="#1c9197"/>
@@ -1213,67 +1293,64 @@
       </div>
     </div>
   </footer>
-  <!-- ═══════════════════════════════════════
-       SCRIPTS
-  ═══════════════════════════════════════ -->
+
   <script>
-    /* ─── THEME ─── */
-    const themeToggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    const saved = localStorage.getItem('ci-theme');
-    if (saved) html.setAttribute('data-theme', saved);
-    themeToggle.addEventListener('click', () => {
-      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('ci-theme', next);
+    /* MOBILE NAV */
+    const navHamburger = document.getElementById('navHamburger');
+    const navMobile = document.getElementById('navMobile');
+    function closeMobileNav() {
+      navMobile.classList.remove('open');
+      navHamburger.setAttribute('aria-expanded', 'false');
+    }
+    navHamburger.addEventListener('click', () => {
+      const open = navMobile.classList.toggle('open');
+      navHamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-    /* ─── DASHBOARD ANIMATION ─── */
+
+
+    /* DASHBOARD ANIMATION */
     function runDashboardAnimation() {
       const kpis    = [1,2,3,4].map(i => document.getElementById('kpi' + i));
       const triage1 = document.getElementById('dmTriage1');
       const triage2 = document.getElementById('dmTriage2');
       const risk    = document.getElementById('dmRiskCard');
       const bubble  = document.getElementById('dmBubble');
-      kpis.forEach(el => el.classList.remove('visible'));
-      triage1.classList.remove('visible');
-      triage2.classList.remove('visible');
-      risk.classList.remove('visible');
-      bubble.classList.remove('visible');
+      kpis.forEach(el => el && el.classList.remove('visible'));
+      [triage1, triage2, risk, bubble].forEach(el => el && el.classList.remove('visible'));
       const t = (delay, fn) => setTimeout(fn, delay);
-      const timers = [];
-      timers.push(t(200,  () => kpis[0].classList.add('visible')));
-      timers.push(t(420,  () => kpis[1].classList.add('visible')));
-      timers.push(t(640,  () => kpis[2].classList.add('visible')));
-      timers.push(t(860,  () => kpis[3].classList.add('visible')));
-      timers.push(t(1100, () => triage1.classList.add('visible')));
-      timers.push(t(1400, () => triage2.classList.add('visible')));
-      timers.push(t(1800, () => risk.classList.add('visible')));
-      timers.push(t(2400, () => bubble.classList.add('visible')));
-      timers.push(t(9000, () => {
+      t(200,  () => kpis[0] && kpis[0].classList.add('visible'));
+      t(420,  () => kpis[1] && kpis[1].classList.add('visible'));
+      t(640,  () => kpis[2] && kpis[2].classList.add('visible'));
+      t(860,  () => kpis[3] && kpis[3].classList.add('visible'));
+      t(1100, () => triage1 && triage1.classList.add('visible'));
+      t(1400, () => triage2 && triage2.classList.add('visible'));
+      t(1800, () => risk    && risk.classList.add('visible'));
+      t(2400, () => bubble  && bubble.classList.add('visible'));
+      t(9000, () => {
         const m = document.getElementById('dashboardMockup');
+        if (!m) return;
         m.style.transition = 'opacity 500ms ease';
         m.style.opacity = '0';
-        t(600, () => {
-          m.style.opacity = '1';
-          runDashboardAnimation();
-        });
-      }));
+        t(600, () => { m.style.opacity = '1'; runDashboardAnimation(); });
+      });
     }
-    const obs = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        runDashboardAnimation();
-        obs.disconnect();
-      }
-    }, { threshold: 0.2 });
-    obs.observe(document.getElementById('dashboardMockup'));
-    /* ─── SCROLL FADE ─── */
+    const mockup = document.getElementById('dashboardMockup');
+    if (mockup) {
+      const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) { runDashboardAnimation(); obs.disconnect(); }
+      }, { threshold: 0.2 });
+      obs.observe(mockup);
+    }
+
+    /* SCROLL FADE */
     const fadeObs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) { e.target.classList.add('in-view'); fadeObs.unobserve(e.target); }
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
-    /* ─── FORM ─── */
+
+    /* FORM */
     function handleSubmit(e) {
       e.preventDefault();
       const btn  = document.querySelector('.cta-btn');
