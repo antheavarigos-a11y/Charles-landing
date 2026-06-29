@@ -1409,6 +1409,10 @@
     /* FORM */
     function handleSubmit(e) {
       e.preventDefault();
+      const email = document.getElementById('ctaEmail').value;
+      const subject = encodeURIComponent("I'd like founding access to Charles");
+      const body = encodeURIComponent("Hi Anthea,\n\nI'm interested in founding access to Charles.\n\nEmail: " + email + "\nName: \nCompany: \n");
+      window.location.href = "mailto:hello@charlesintelligence.com?subject=" + subject + "&body=" + body;
       const btn  = document.querySelector('.cta-btn');
       const note = document.getElementById('ctaNote');
       btn.textContent = 'Application submitted';
